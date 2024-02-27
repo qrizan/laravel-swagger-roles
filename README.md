@@ -35,8 +35,12 @@ DB_DATABASE=<DB_NAME>
 DB_USERNAME=<DB_USERNAME>>
 DB_PASSWORD=<BD_PASSWORD>
 ```
-#### user example 
+#### data example 
 > database/seeders/UserTableSeeder.php
+
+> database/seeders/PermissionsTableSeeder.php
+
+> database/seeders/RolesTableSeeder.php
 
 #### database migration
 > php artisan config:cache
