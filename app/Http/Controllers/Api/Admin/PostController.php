@@ -188,7 +188,7 @@ class PostController extends Controller
     */
     public function show($id)
     {
-        $post = Post::with('category')->whereId($id)->first();
+        $post = Post::with('category')->whereId($id)->where('user_id', auth()->user()->id)->first();
         
         if($post) {
             return new PostResource(true, 'Success', $post);
