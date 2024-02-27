@@ -12,6 +12,20 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {    
+        
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware(['permission:posts.index'], ['only' => ['index']]);
+        $this->middleware(['permission:posts.create'], ['only' => ['store']]);
+        $this->middleware(['permission:posts.edit'], ['only' => ['update','show']]);
+        $this->middleware(['permission:posts.delete'], ['only' => ['destroy']]);
+    }
+
     /**
     * @OA\Get(
     *     path="/api/admin/posts",
@@ -277,6 +291,10 @@ class PostController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
+        if ($post->user_id != auth()->guard('api')->user()->id) {
+            return new PostResource(false, 'Unauthorized', null);
+        }
+
         if ($request->file('image')) {
 
             Storage::disk('local')->delete('public/posts/'.basename($post->image));
@@ -296,7 +314,7 @@ class PostController extends Controller
         }
 
         $post->update([
-            '   title'        => strip_tags($request->title),
+                'title'        => strip_tags($request->title),
                 'slug'        => Str::slug($request->title, '-'),
                 'category_id' => $request->category_id,
                 'user_id'     => auth()->guard('api')->user()->id,
@@ -351,6 +369,10 @@ class PostController extends Controller
     */
     public function destroy(Post $post)
     {   
+        if ($post->user_id != auth()->guard('api')->user()->id) {
+            return new PostResource(false, 'Unauthorized', null);
+        }
+
         Storage::disk('local')->delete('public/posts/'.basename($post->image));
 
         if($post->delete()) {

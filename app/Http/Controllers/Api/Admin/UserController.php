@@ -11,6 +11,20 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {    
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware(['permission:users.index'], ['only' => ['index']]);
+        $this->middleware(['permission:users.create'], ['only' => ['store']]);
+        $this->middleware(['permission:users.edit'], ['only' => ['update','show']]);
+        $this->middleware(['permission:users.delete'], ['only' => ['destroy']]);
+    }
+
     /**
     * @OA\Get(
     *     path="/api/admin/users",
@@ -89,7 +103,7 @@ class UserController extends Controller
     *                     description="Password user",
     *                     type="string"
     *                 ),    
-    *                 example={"name": "test admin","email": "admin@email.com","password": "Password123$","password_confirmation": "Password123$","roles": {"marketing", "roles", "reviewer"}}
+    *                 example={"name": "test admin","email": "admin@email.com","password": "Password123$","password_confirmation": "Password123$","roles": {"marketing", "author", "reviewer"}}
     *             )
     *         )
     *     ),     
@@ -256,7 +270,7 @@ class UserController extends Controller
     *                           @OA\Schema(type="number")
     *                       ),
     *                 ),    
-    *                 example={"name": "test admin","email": "admin@email.com","password": "Password123$","password_confirmation": "Password123$","roles": {"marketing", "roles", "reviewer"}}
+    *                 example={"name": "test admin","email": "admin@email.com","password": "Password123$","password_confirmation": "Password123$","roles": {"marketing", "author", "reviewer"}}
     *             )
     *         )
     *     ),     

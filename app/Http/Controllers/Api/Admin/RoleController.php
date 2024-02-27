@@ -10,6 +10,20 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {    
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware(['permission:roles.index'], ['only' => ['index','all']]);
+        $this->middleware(['permission:roles.create'], ['only' => ['store']]);
+        $this->middleware(['permission:roles.edit'], ['only' => ['update','show']]);
+        $this->middleware(['permission:roles.delete'], ['only' => ['destroy']]);
+    }
+
     /**
     * @OA\Get(
     *     path="/api/admin/roles",

@@ -14,6 +14,19 @@ class CategoryController extends Controller
 {    
 
     /**
+     * __construct
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware(['permission:categories.index'], ['only' => ['index']]);
+        $this->middleware(['permission:categories.create'], ['only' => ['store']]);
+        $this->middleware(['permission:categories.edit'], ['only' => ['update','show']]);
+        $this->middleware(['permission:categories.delete'], ['only' => ['destroy']]);
+    }
+
+    /**
     * @OA\Get(
     *     path="/api/admin/categories",
     *     tags={"Admin"},

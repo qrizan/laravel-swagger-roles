@@ -9,6 +9,16 @@ use App\Http\Resources\PermissionResource;
 class PermissionController extends Controller
 {    
     /**
+     * __construct
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware(['permission:permissions.index'], ['only' => ['index','all']]);
+    }
+
+    /**
     * @OA\Get(
     *     path="/api/admin/permissons",
     *     tags={"Admin"},
