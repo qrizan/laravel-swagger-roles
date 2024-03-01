@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/categories/all', [CategoryController::class, 'all'])->middleware('permission:categories.index');
         Route::apiResource('/categories', CategoryController::class)->middleware('permission:categories.index|categories.store|categories.update|categories.delete');
 
+        Route::post('/posts/storeImagePost', [PostController::class, 'storeImagePost']);
         Route::apiResource('/posts', PostController::class)->middleware('permission:posts.index|posts.store|posts.update|posts.delete');
     });
 });

@@ -21,7 +21,7 @@ class PostController extends Controller
     function __construct()
     {
         $this->middleware(['permission:posts.index'], ['only' => ['index']]);
-        $this->middleware(['permission:posts.create'], ['only' => ['store']]);
+        $this->middleware(['permission:posts.create'], ['only' => ['store','storeImagePost']]);
         $this->middleware(['permission:posts.edit'], ['only' => ['update','show']]);
         $this->middleware(['permission:posts.delete'], ['only' => ['destroy']]);
     }
@@ -380,5 +380,60 @@ class PostController extends Controller
         }
 
         return new PostResource(false, 'Failed', null);
+    }    
+
+    /**
+    * @OA\Post(
+    *     path="/api/admin/posts/storeImagePost",
+    *     tags={"Admin"},
+    *     summary="Store new post image",
+    *     security={{ "apiAuth": {} }},
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="multipart/form-data",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     property="image",
+    *                     description="Post image",
+    *                     type="file",
+    *                     format="file",
+    *                 ),
+    *             )
+    *         )
+    *     ), 
+    *     @OA\Response(
+    *         response=201,
+    *         description="Success",
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Success",
+    *     ),    
+    *     @OA\Response(
+    *         response=401,
+    *         description="Unauthenticated"
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Bad Request"
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="not found"
+    *     ),
+    *     @OA\Response(
+    *        response=403,
+    *        description="Forbidden"
+    *     )        
+    * )
+    */
+    public function storeImagePost(Request $request)
+    {
+        $image = $request->file('image');
+        $image->storeAs('public/post_images', $image->hashName());
+
+        return response()->json([
+            'url'       => asset('storage/post_images/'.$image->hashName())
+        ]);
     }    
 }

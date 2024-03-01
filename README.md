@@ -7,6 +7,9 @@
 ![public](screenshot/public.png)
 
 
+#### example of use
+https://github.com/qrizan/react-tailwind-roles
+
 ## setup
 
 #### install dependencies
@@ -33,7 +36,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=<DB_NAME>
 DB_USERNAME=<DB_USERNAME>>
-DB_PASSWORD=<BD_PASSWORD>
+DB_PASSWORD=<DBs_PASSWORD>
 ```
 #### data example 
 > database/seeders/UserTableSeeder.php

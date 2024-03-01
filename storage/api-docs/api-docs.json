@@ -645,6 +645,56 @@
                 ]
             }
         },
+        "/api/admin/posts/storeImagePost": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Store new post image",
+                "operationId": "dee311d30fea05d925a257b762563db1",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "Post image",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success"
+                    },
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/roles": {
             "get": {
                 "tags": [
@@ -1001,7 +1051,7 @@
                                     "password_confirmation": "Password123$",
                                     "roles": [
                                         "marketing",
-                                        "roles",
+                                        "author",
                                         "reviewer"
                                     ]
                                 }
@@ -1135,7 +1185,7 @@
                                     "password_confirmation": "Password123$",
                                     "roles": [
                                         "marketing",
-                                        "roles",
+                                        "author",
                                         "reviewer"
                                     ]
                                 }
