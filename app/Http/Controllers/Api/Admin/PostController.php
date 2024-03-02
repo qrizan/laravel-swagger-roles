@@ -429,6 +429,14 @@ class PostController extends Controller
     */
     public function storeImagePost(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'image'         => 'required|image|mimes:jpeg,jpg,png|max:2000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
         $image = $request->file('image');
         $image->storeAs('public/post_images', $image->hashName());
 
