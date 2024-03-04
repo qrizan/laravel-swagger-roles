@@ -44,7 +44,7 @@ class PostController extends Controller
     {
         $posts = Post::with('user', 'category')->when(request()->search, function($posts) {
             $posts = $posts->where('title', 'like', '%'. request()->search . '%');
-        })->latest()->paginate(6);
+        })->latest()->paginate(10);
 
         return new PostResource(true, 'Success', $posts);
     }

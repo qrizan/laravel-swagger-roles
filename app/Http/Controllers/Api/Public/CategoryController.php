@@ -86,7 +86,7 @@ class CategoryController extends Controller
     */
     public function show($slug)
     {
-        $category = Category::with('posts.category')->where('slug', $slug)->first();
+        $category = Category::with('posts.category', 'posts.user')->where('slug', $slug)->first();
 
         if($category) {
             return new CategoryResource(true, 'Success', $category);

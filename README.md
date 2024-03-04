@@ -8,7 +8,12 @@
 
 
 #### example of use
+
+##### administrator
 https://github.com/qrizan/react-tailwind-roles
+
+##### public
+https://github.com/qrizan/nextjs-tailwind-storybook
 
 ## setup
 
@@ -36,7 +41,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=<DB_NAME>
 DB_USERNAME=<DB_USERNAME>>
-DB_PASSWORD=<DBs_PASSWORD>
+DB_PASSWORD=<DB_PASSWORD>
 ```
 #### data example 
 > database/seeders/UserTableSeeder.php
