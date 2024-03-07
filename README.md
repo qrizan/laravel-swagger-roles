@@ -12,6 +12,8 @@
 ##### administrator
 https://github.com/qrizan/react-tailwind-roles
 
+https://github.com/qrizan/vue-tailwind-roles
+
 ##### public
 https://github.com/qrizan/nextjs-tailwind-storybook
 
