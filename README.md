@@ -1,4 +1,13 @@
-## Base Restful API
+## News Article Restful API
+
+#### built with
+
+| Tools  |  |
+| :--- | :--- |
+| Laravel  | https://laravel.com  |
+| Spatie  | https://spatie.be  |
+| Swagger | https://swagger.io  |
+| etc |  |
 
 
 #### users diagram
@@ -20,22 +29,27 @@ https://github.com/qrizan/nextjs-tailwind-storybook
 ## setup
 
 #### install dependencies
-> composer install
-
+```
+composer install
+```
 #### copy .env
-> cp .env.example .env
-
+```
+copy .env.example .env
+```
 #### generate application key
-> php artisan key:generate
-
+```
+php artisan key:generate
+```
 #### generate secret key
-> php artisan jwt:secret
-
+```
+php artisan jwt:secret
+```
 #### storage link
-> php artisan storage:link
-
+```
+php artisan storage:link
+```
 #### DB configuration
-> create database
+- create database and setup .env
 
 ```
 DB_CONNECTION=mysql
@@ -52,22 +66,21 @@ DB_PASSWORD=<DB_PASSWORD>
 
 > database/seeders/RolesTableSeeder.php
 
-#### database migration
-> php artisan config:cache
-
-> php artisan config:clear
-
-> composer dump-autoload
-
-> php artisan migrate --seed
-
-#### runnning
-> php artisan serve
-
-#### API documentation
-``` 
-http://localhost:8000/api/documentation
+#### database migration and seeder
 ```
+php artisan config:cache
+php artisan config:clear
+composer dump-autoload
+php artisan migrate --seed
+```
+#### runnning
+```
+php artisan serve
+```
+#### API documentation
+
+> check Url http://localhost:8000/api/documentation
+
 
 ![documentation](screenshot/documentation.png
 )
