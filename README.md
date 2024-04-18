@@ -26,6 +26,8 @@ https://github.com/qrizan/vue-tailwind-roles
 ##### public
 https://github.com/qrizan/nextjs-tailwind-storybook
 
+https://github.com/qrizan/news-application-mobile
+
 ## setup
 
 #### install dependencies
