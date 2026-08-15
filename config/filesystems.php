@@ -34,6 +34,20 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
             'throw' => false,
+
+            // Tanpa baris ini Flysystem memakai visibility bawaannya, "private",
+            // sehingga direktori yang dibuat saat unggah gambar bermode 0700 —
+            // hanya bisa dimasuki pemiliknya (www-data, user php-fpm).
+            //
+            // Di setup satu server hal itu tidak terasa karena PHP dan nginx
+            // umumnya berjalan sebagai user yang sama. Di stack docker-compose
+            // news-article, nginx ada di container terpisah dan berjalan sebagai
+            // user lain, jadi stat() ditolak (13: Permission denied) dan
+            // try_files memperlakukannya sebagai berkas tidak ada → 404.
+            //
+            // "public" membuat direktori baru bermode 0755, tetap tidak bisa
+            // ditulis pengguna lain, hanya bisa ditembus dan dibaca.
+            'visibility' => 'public',
         ],
 
         'public' => [
