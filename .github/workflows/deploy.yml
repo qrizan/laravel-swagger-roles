@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+    steps:
+      - name: Pull latest code
+        run: |
+          git -C /home/rizan/Projects/laravel-swagger-roles fetch origin
+          git -C /home/rizan/Projects/laravel-swagger-roles checkout main
+          git -C /home/rizan/Projects/laravel-swagger-roles pull
+
+      - name: Rebuild and redeploy php-fpm
+        run: |
+          cd /home/rizan/Projects/news-article
+          docker compose build php-fpm
+          docker compose up -d --force-recreate php-fpm
