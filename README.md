@@ -18,15 +18,7 @@
 
 #### example of use
 
-##### administrator
-https://github.com/qrizan/react-tailwind-roles
-
-https://github.com/qrizan/vue-tailwind-roles
-
-##### public
-https://github.com/qrizan/nextjs-tailwind-storybook
-
-https://github.com/qrizan/news-application-mobile
+https://github.com/qrizan/news-article
 
 ## setup
 
