@@ -26,7 +26,7 @@ RUN composer dump-autoload --optimize --no-dev \
 ########################################
 # Target: php-fpm — application runtime
 ########################################
-FROM php:8.3-fpm-alpine@sha256:bf90236449d333cef008b1f01c72a3d4f11a6470a74629665e4c6b6158f03fc8 AS php-fpm
+FROM php:8.5-fpm-alpine@sha256:9dc81f4086ea5402227a6bcc489b04b4baba12394624d9621faa92ed812fb8ee AS php-fpm
 
 RUN apk add --no-cache libzip icu-libs \
     && apk add --no-cache --virtual .build-deps libzip-dev icu-dev \
