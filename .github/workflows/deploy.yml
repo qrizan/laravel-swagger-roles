@@ -16,7 +16,15 @@ jobs:
           git -C /home/rizan/Projects/laravel-swagger-roles pull
 
       - name: Rebuild and redeploy php-fpm
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: |
           cd /home/rizan/Projects/news-article
           docker compose build php-fpm
           docker compose up -d --force-recreate php-fpm
+
+      - name: Rebuild and redeploy nginx-api
+        run: |
+          cd /home/rizan/Projects/news-article
+          docker compose build nginx-api
+          docker compose up -d --force-recreate nginx-api
