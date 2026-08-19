@@ -5,8 +5,13 @@ FROM composer:2@sha256:4d71c3c2109c61d5415544264b59ad4087e4c5b7244481723664138fd
 
 WORKDIR /app
 
+# Token GitHub opsional untuk composer: menghindari rate limit unduhan dist
+# anonim (60/jam) dari codeload.github.com, yang mulai kena sejak build
+# dipicu otomatis oleh CD tiap merge ke main, bukan cuma manual sesekali.
+ARG COMPOSER_AUTH
+
 COPY composer.json composer.lock ./
-RUN composer install \
+RUN COMPOSER_AUTH="${COMPOSER_AUTH}" composer install \
         --no-dev \
         --no-scripts \
         --no-autoloader \
