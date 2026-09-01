@@ -21,9 +21,30 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 wajib untuk --baseline-commit di bawah: butuh commit
+      # baseline tersedia lokal, bukan cuma HEAD dari shallow clone bawaan.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - run: pip install semgrep==1.173.0
-      - run: semgrep scan --config auto
+      # Standalone (tanpa akun AppSec Platform) tidak bisa filter blocking
+      # per severity: --severity Semgrep punya bug taksonomi lama vs baru
+      # yang belum diperbaiki (rule CRITICAL malah lolos filter --severity
+      # ERROR). --error menjadikan SEMUA temuan blocking, jadi supaya CI
+      # tidak permanen merah oleh temuan lama, cakupannya dipersempit ke
+      # temuan baru saja lewat diff-aware scan (--baseline-commit), murni
+      # fitur CLI, tidak butuh token/akun.
+      - run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASELINE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASELINE="${{ github.event.before }}"
+          fi
+          if [ -n "$BASELINE" ] && [ "$BASELINE" != "0000000000000000000000000000000000000000" ]; then
+            semgrep scan --config auto --error --baseline-commit "$BASELINE"
+          else
+            semgrep scan --config auto --error
+          fi
 
   trivy-image:
     runs-on: ubuntu-latest
